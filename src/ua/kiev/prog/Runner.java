@@ -3,11 +3,11 @@ package ua.kiev.prog;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Runer {
+public class Runner {
 
     public static String Run(Class<?>... cls) {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
 
         for (Class<?> cl : cls) {
             for (Method method : cl.getDeclaredMethods()) {
