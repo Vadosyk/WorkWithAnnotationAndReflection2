@@ -1,0 +1,36 @@
+package ua.kiev.prog;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class Runer {
+
+    public static String Run(Class<?>... cls) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Class<?> cl : cls) {
+            for (Method method : cl.getDeclaredMethods()) {
+                if (method.getAnnotationsByType(AnnFolder.class) != null) {
+                    try {
+                        Object obj = cl.newInstance();
+                        for (AnnFolder annotation : method.getAnnotationsByType(AnnFolder.class)) {
+                            method.invoke(obj, annotation.paramFolder(), annotation.methodName());
+                        }
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        sb.append("END PROGRAM");
+
+        return sb.toString();
+    }
+}
+
+
